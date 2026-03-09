@@ -1,9 +1,9 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
-from detector import detect_sign, draw_boxes
-from ocr import extract_text
-from parser import parse_parking_rules
+from core.detector import detect_sign, draw_boxes
+from core.ocr import extract_text
+from core.parser import parse_parking_rules
 from datetime import datetime
 
 st.set_page_config(
