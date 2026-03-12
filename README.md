@@ -8,7 +8,7 @@ ParkSence is a three-part system built for anyone navigating Stockholm's (or any
 
 ## Short Demo
 
-> _Coming soon_
+https://github.com/user-attachments/assets/59de0738-8cb1-4dbb-bc36-f4b1cd2fe975
 
 ---
 
