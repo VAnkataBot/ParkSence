@@ -179,4 +179,3 @@ On first run the model (~5–16 GB depending on quantization) is downloaded auto
 | AI (cloud) | HuggingFace Inference API, Qwen2.5-VL-72B |
 | Auth | JWT (python-jose), bcrypt (passlib) |
 | Package mgmt | uv |
-a
