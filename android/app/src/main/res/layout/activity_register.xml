@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0D12"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="60dp"
+        android:paddingBottom="40dp">
+
+        <!-- Back button -->
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="← Back"
+            android:textSize="15sp"
+            android:textColor="#66FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create account"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#EEFFFFFF"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tell us about your vehicle so we can give accurate parking advice"
+            android:textSize="14sp"
+            android:textColor="#66FFFFFF"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginBottom="28dp" />
+
+        <!-- Account details card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_notes_card"
+            android:padding="24dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#88FFFFFF"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="12sp"
+                android:textColor="#88FFFFFF"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="you@example.com"
+                android:textColor="#EEFFFFFF"
+                android:textSize="15sp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/bg_input_field"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textSize="12sp"
+                android:textColor="#88FFFFFF"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="Min 6 characters"
+                android:textColor="#EEFFFFFF"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_input_field"
+                android:paddingHorizontal="16dp" />
+
+        </LinearLayout>
+
+        <!-- Vehicle profile card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_notes_card"
+            android:padding="24dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vehicle"
+                android:textSize="13sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#88FFFFFF"
+                android:letterSpacing="0.08"
+                android:textAllCaps="true"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vehicle type"
+                android:textSize="12sp"
+                android:textColor="#88FFFFFF"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Vehicle type buttons (radio-style) -->
+            <LinearLayout
+                android:id="@+id/vehicleTypeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/btnVehicleCar"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="🚗 Car"
+                    android:textSize="13sp"
+                    android:textColor="#EEFFFFFF"
+                    android:background="@drawable/bg_vehicle_selected"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/btnVehicleMoto"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="🏍 Moto"
+                    android:textSize="13sp"
+                    android:textColor="#88FFFFFF"
+                    android:background="@drawable/bg_vehicle_unselected"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/btnVehicleEV"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="⚡ EV"
+                    android:textSize="13sp"
+                    android:textColor="#88FFFFFF"
+                    android:background="@drawable/bg_vehicle_unselected"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/btnVehicleTruck"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="🚚 Truck"
+                    android:textSize="12sp"
+                    android:textColor="#88FFFFFF"
+                    android:background="@drawable/bg_vehicle_unselected" />
+
+            </LinearLayout>
+
+            <!-- Disability permit toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="♿ Disability permit"
+                        android:textSize="14sp"
+                        android:textColor="#EEFFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Allows parking in reserved spaces"
+                        android:textSize="12sp"
+                        android:textColor="#55FFFFFF" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchDisabled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false" />
+
+            </LinearLayout>
+
+            <!-- Resident permit toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏠 Resident permit"
+                        android:textSize="14sp"
+                        android:textColor="#EEFFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="For Boende/resident-only zones"
+                        android:textSize="12sp"
+                        android:textColor="#55FFFFFF" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchResident"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false" />
+            </LinearLayout>
+
+            <!-- Resident zone (shown when resident permit ON) -->
+            <LinearLayout
+                android:id="@+id/residentZoneRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Resident zone (optional)"
+                    android:textSize="12sp"
+                    android:textColor="#88FFFFFF"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="4dp" />
+
+                <EditText
+                    android:id="@+id/etResidentZone"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:hint="e.g. A, B4, Östermalm"
+                    android:textColor="#EEFFFFFF"
+                    android:textSize="14sp"
+                    android:background="@drawable/bg_input_field"
+                    android:paddingHorizontal="16dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Error -->
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textColor="#F44336"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Register button -->
+        <TextView
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="Create Account"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#4CAF50"
+            android:background="@drawable/bg_scan_button"
+            android:layout_marginBottom="16dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:visibility="gone"
+            android:indeterminateTint="#4CAF50" />
+
+    </LinearLayout>
+</ScrollView>

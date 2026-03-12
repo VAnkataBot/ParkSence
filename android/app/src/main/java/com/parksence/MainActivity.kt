@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -20,7 +21,10 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.parksence.api.LmStudioClient
+import com.parksence.api.ApiClient
+import com.parksence.auth.LoginActivity
+import com.parksence.auth.ProfileActivity
+import com.parksence.auth.UserSession
 import com.parksence.databinding.ActivityMainBinding
 import com.parksence.detection.ColorDetector
 import com.parksence.ui.ScanOverlayView
@@ -50,11 +54,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+        // Redirect to login if not authenticated
+        if (!UserSession.isLoggedIn(this)) {
+            startActivity(android.content.Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+        UserSession.load(this) // restores ApiClient.authToken
+
         val prefs = getSharedPreferences("settings", MODE_PRIVATE)
-        LmStudioClient.serverUrl = prefs.getString("server_url", "http://192.168.1.100:1234")!!
+        ApiClient.serverUrl = prefs.getString("server_url", "http://192.168.68.101:8000")!!
 
         binding.btnScanAgain.setOnClickListener { resetToScan() }
+        binding.btnScanAgainTop.setOnClickListener { resetToScan() }
         binding.btnSettings.setOnClickListener { showSettingsDialog() }
+        val openProfile = android.content.Intent(this, ProfileActivity::class.java)
+        binding.btnProfile.setOnClickListener { startActivity(openProfile) }
+        binding.btnProfileScan.setOnClickListener { startActivity(openProfile) }
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
             startCamera()
@@ -66,17 +82,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun showSettingsDialog() {
         val input = EditText(this).apply {
-            setText(LmStudioClient.serverUrl)
-            hint = "http://192.168.x.x:1234"
+            setText(ApiClient.serverUrl)
+            hint = "http://192.168.x.x:8000"
             setPadding(48, 24, 48, 24)
         }
         AlertDialog.Builder(this)
-            .setTitle("LM Studio server URL")
-            .setMessage("Enter your Mac's local IP and port")
+            .setTitle("Server URL")
+            .setMessage("Enter your ParkSence server URL")
             .setView(input)
             .setPositiveButton("Save") { _, _ ->
                 val url = input.text.toString().trimEnd('/')
-                LmStudioClient.serverUrl = url
+                ApiClient.serverUrl = url
                 getSharedPreferences("settings", MODE_PRIVATE).edit()
                     .putString("server_url", url).apply()
             }
@@ -111,14 +127,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // ── Live frame analysis (Persona-style: detect → lock → auto-capture) ───
+    // ── Live frame analysis ───────────────────────────────────────────────────
 
     private fun analyseFrame(proxy: ImageProxy) {
         if (isAnalysing) { proxy.close(); return }
         var hasSign = false
         try {
             var bitmap = proxy.toBitmap()
-            // toBitmap() returns sensor orientation (landscape) — rotate to match display
             val rotation = proxy.imageInfo.rotationDegrees
             if (rotation != 0) {
                 val matrix = Matrix()
@@ -139,9 +154,7 @@ class MainActivity : AppCompatActivity() {
             if (hasSign) {
                 lockFrameCount++
                 when {
-                    lockFrameCount >= LOCK_FRAMES_NEEDED && !isAnalysing -> {
-                        captureAndAnalyse()
-                    }
+                    lockFrameCount >= LOCK_FRAMES_NEEDED && !isAnalysing -> captureAndAnalyse()
                     lockFrameCount == 4 -> {
                         buzz()
                         binding.overlay.state = ScanOverlayView.State.LOCKED
@@ -165,7 +178,6 @@ class MainActivity : AppCompatActivity() {
                     val fullBitmap: Bitmap
                     try {
                         var bmp = image.toBitmap()
-                        // Rotate to match display orientation (same fix as analyseFrame)
                         val rotation = image.imageInfo.rotationDegrees
                         if (rotation != 0) {
                             val matrix = Matrix()
@@ -184,7 +196,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     image.close()
 
-                    // Crop to reticle area for LLM (reticle: x 31-69%, y 12.5-57.5%)
                     val w = fullBitmap.width
                     val h = fullBitmap.height
                     val cropX = (w * 0.31f).toInt()
@@ -193,7 +204,6 @@ class MainActivity : AppCompatActivity() {
                     val cropH = (h * 0.45f).toInt()
                     val croppedBitmap = Bitmap.createBitmap(fullBitmap, cropX, cropY, cropW, cropH)
 
-                    // ── Persona-style freeze frame (full image) ──
                     showCaptureEffect(fullBitmap)
 
                     val now  = LocalDateTime.now()
@@ -202,8 +212,7 @@ class MainActivity : AppCompatActivity() {
 
                     lifecycleScope.launch(Dispatchers.IO) {
                         try {
-                            // Send only the cropped sign area to the LLM
-                            val result = LmStudioClient.analyze(croppedBitmap, day, time)
+                            val result = ApiClient.analyze(croppedBitmap, day, time)
                             croppedBitmap.recycle()
                             withContext(Dispatchers.Main) { showResult(result) }
                         } catch (e: Exception) {
@@ -221,12 +230,11 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    // ── Persona-style capture effect: flash + freeze + processing overlay ────
+    // ── Persona-style capture effect ─────────────────────────────────────────
 
     private fun showCaptureEffect(bitmap: Bitmap) {
         buzz()
 
-        // 1. Show frozen frame (the "screenshot")
         binding.capturedFrame.setImageBitmap(bitmap)
         binding.capturedFrame.visibility = View.VISIBLE
         binding.capturedFrame.scaleX = 1.04f
@@ -238,7 +246,6 @@ class MainActivity : AppCompatActivity() {
             .setInterpolator(DecelerateInterpolator())
             .start()
 
-        // 2. White flash (like a camera shutter)
         binding.flashOverlay.apply {
             visibility = View.VISIBLE
             alpha = 0.8f
@@ -248,7 +255,6 @@ class MainActivity : AppCompatActivity() {
                 .start()
         }
 
-        // 3. Switch overlay to ANALYSING (spinning arcs over frozen frame)
         binding.overlay.state = ScanOverlayView.State.ANALYSING
     }
 
@@ -266,42 +272,51 @@ class MainActivity : AppCompatActivity() {
         } catch (_: Exception) { }
     }
 
-    // ── Result display ──────────────────────────────────────────────────────
+    // ── Result display ────────────────────────────────────────────────────────
 
     private fun showResult(result: com.parksence.api.ParkingResult) {
-        // Fade out frozen frame + overlay, slide in results
+        // Fade out frozen frame + overlay
         binding.overlay.animate().alpha(0f).setDuration(250).withEndAction {
             binding.overlay.visibility = View.GONE
             binding.overlay.alpha = 1f
         }.start()
 
         binding.capturedFrame.animate()
-            .alpha(0f)
-            .setDuration(300)
+            .alpha(0f).setDuration(300)
             .withEndAction {
                 binding.capturedFrame.visibility = View.GONE
                 binding.capturedFrame.setImageBitmap(null)
             }.start()
 
+        // Hide scan-screen UI
+        binding.brandingLabel.visibility = View.GONE
+        binding.btnSettings.visibility = View.GONE
+        binding.btnProfileScan.visibility = View.GONE
+
+        // Slide in result card
         binding.resultCard.apply {
-            alpha = 0f; translationY = 80f; visibility = View.VISIBLE
-            animate().alpha(1f).translationY(0f).setDuration(450)
-                .setStartDelay(150)
+            alpha = 0f; translationY = 60f; visibility = View.VISIBLE
+            animate().alpha(1f).translationY(0f).setDuration(400)
+                .setStartDelay(100)
                 .setInterpolator(DecelerateInterpolator()).start()
         }
 
+        // Verdict card: background + icon + title + color
         when (result.canPark) {
-            true  -> {
+            true -> {
+                binding.verdictCard.setBackgroundResource(R.drawable.bg_verdict_can)
                 binding.resultIcon.text = "\u2705"
                 binding.resultTitle.text = "You can park here"
                 binding.resultTitle.setTextColor(getColor(R.color.green))
             }
             false -> {
+                binding.verdictCard.setBackgroundResource(R.drawable.bg_verdict_cannot)
                 binding.resultIcon.text = "\uD83D\uDEAB"
-                binding.resultTitle.text = "You cannot park here"
+                binding.resultTitle.text = "No parking here"
                 binding.resultTitle.setTextColor(getColor(R.color.red))
             }
-            null  -> {
+            null -> {
+                binding.verdictCard.setBackgroundResource(R.drawable.bg_verdict_unknown)
                 binding.resultIcon.text = "\u26A0\uFE0F"
                 binding.resultTitle.text = "Could not determine"
                 binding.resultTitle.setTextColor(getColor(R.color.orange))
@@ -309,35 +324,63 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.resultMessage.text = result.message
-        binding.resultNotes.text   = result.notes.joinToString("\n") { "\u2139 $it" }
-        binding.resultNotes.visibility = if (result.notes.isEmpty()) View.GONE else View.VISIBLE
-        binding.btnScanAgain.visibility = View.VISIBLE
 
-        // Signs the LLM saw
+        // Notes as individual cards
+        binding.notesContainer.removeAllViews()
+        if (result.notes.isNotEmpty()) {
+            binding.notesHeader.visibility = View.VISIBLE
+            result.notes.forEachIndexed { i, note ->
+                val tv = TextView(this).apply {
+                    text = "\u2139\uFE0F  $note"
+                    textSize = 13f
+                    setTextColor(0xCCFFFFFF.toInt())
+                    setBackgroundResource(R.drawable.bg_notes_card)
+                    setPadding(36, 22, 36, 22)
+                    setLineSpacing(0f, 1.4f)
+                    val lp = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                    ).apply { bottomMargin = 8 }
+                    layoutParams = lp
+                    alpha = 0f; translationX = 40f
+                    animate().alpha(1f).translationX(0f)
+                        .setStartDelay((i * 60 + 200).toLong())
+                        .setDuration(280).setInterpolator(DecelerateInterpolator()).start()
+                }
+                binding.notesContainer.addView(tv)
+            }
+        } else {
+            binding.notesHeader.visibility = View.GONE
+        }
+
+        // Signs as individual chips
         binding.signsContainer.removeAllViews()
         if (result.signs.isNotEmpty()) {
             binding.signsHeader.visibility = View.VISIBLE
             result.signs.forEachIndexed { i, sign ->
                 val tv = TextView(this).apply {
                     text = sign
-                    textSize = 14f
-                    setTextColor(0xCCFFFFFF.toInt())
-                    setBackgroundResource(R.drawable.bg_notes_card)
-                    setPadding(40, 28, 40, 28)
-                    setLineSpacing(0f, 1.3f)
-                    val lp = android.widget.LinearLayout.LayoutParams(
-                        android.widget.LinearLayout.LayoutParams.MATCH_PARENT,
-                        android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
-                    ).apply { bottomMargin = 12 }
+                    textSize = 13f
+                    setTextColor(0xBBFFFFFF.toInt())
+                    setBackgroundResource(R.drawable.bg_sign_chip)
+                    setPadding(28, 16, 28, 16)
+                    val lp = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                    ).apply { bottomMargin = 8 }
                     layoutParams = lp
-                    alpha = 0f; translationX = 60f
+                    alpha = 0f; translationX = 40f
                     animate().alpha(1f).translationX(0f)
-                        .setStartDelay((i * 80 + 300).toLong())
-                        .setDuration(300).setInterpolator(DecelerateInterpolator()).start()
+                        .setStartDelay((i * 60 + 350).toLong())
+                        .setDuration(280).setInterpolator(DecelerateInterpolator()).start()
                 }
                 binding.signsContainer.addView(tv)
             }
+        } else {
+            binding.signsHeader.visibility = View.GONE
         }
+
+        binding.btnScanAgain.visibility = View.VISIBLE
     }
 
     private fun showError(msg: String) {
@@ -349,33 +392,52 @@ class MainActivity : AppCompatActivity() {
                 binding.capturedFrame.visibility = View.GONE
                 binding.capturedFrame.setImageBitmap(null)
             }.start()
+
+        binding.brandingLabel.visibility = View.GONE
+        binding.btnSettings.visibility = View.GONE
+        binding.btnProfileScan.visibility = View.GONE
+
         binding.resultCard.visibility = View.VISIBLE
+        binding.verdictCard.setBackgroundResource(R.drawable.bg_verdict_cannot)
         binding.resultIcon.text = "\u274C"
         binding.resultTitle.text = "Connection error"
         binding.resultTitle.setTextColor(getColor(R.color.red))
         binding.resultMessage.text =
-            "Could not reach LM Studio.\n\nCheck:\n\u2022 Mac and phone on same WiFi\n\u2022 LM Studio server is running\n\u2022 Tap \u2699 and set correct IP\n\n$msg"
+            "Could not reach the server.\n\n\u2022 Check your WiFi\n\u2022 Server is running\n\u2022 Tap \u2699 and set correct URL\n\n$msg"
         binding.btnScanAgain.visibility = View.VISIBLE
     }
 
     private fun resetToScan() {
         isAnalysing = false
         lockFrameCount = 0
+
         binding.overlay.alpha = 1f
         binding.overlay.state = ScanOverlayView.State.SEARCHING
         binding.overlay.visibility = View.VISIBLE
+
         binding.capturedFrame.visibility = View.GONE
         binding.capturedFrame.setImageBitmap(null)
+
         binding.resultCard.visibility = View.GONE
         binding.btnScanAgain.visibility = View.GONE
+        binding.notesHeader.visibility = View.GONE
         binding.signsHeader.visibility = View.GONE
+        binding.notesContainer.removeAllViews()
         binding.signsContainer.removeAllViews()
+
+        binding.brandingLabel.visibility = View.VISIBLE
+        binding.btnSettings.visibility = View.VISIBLE
+        binding.btnProfileScan.visibility = View.VISIBLE
     }
 
     private fun showPermissionDenied() {
+        binding.brandingLabel.visibility = View.GONE
+        binding.btnSettings.visibility = View.GONE
         binding.resultCard.visibility = View.VISIBLE
+        binding.verdictCard.setBackgroundResource(R.drawable.bg_verdict_unknown)
         binding.resultIcon.text = "\uD83D\uDCF7"
         binding.resultTitle.text = "Camera permission required"
+        binding.resultTitle.setTextColor(getColor(R.color.orange))
         binding.resultMessage.text = "Please allow camera access in Settings."
     }
 

@@ -10,6 +10,7 @@ build/
 
 # Models
 models/
+server/model/
 images/
 testing_batch/
 

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0D12"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="80dp"
+        android:paddingBottom="40dp">
+
+        <!-- App icon / logo area -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🅿"
+            android:textSize="64sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="ParkSence"
+            android:textSize="28sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#EEFFFFFF"
+            android:letterSpacing="0.03" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Swedish parking, made simple"
+            android:textSize="14sp"
+            android:textColor="#66FFFFFF" />
+
+        <!-- Form card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_notes_card"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign In"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#EEFFFFFF"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:textSize="12sp"
+                android:textColor="#88FFFFFF"
+                android:letterSpacing="0.05"
+                android:textAllCaps="true"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="you@example.com"
+                android:textColor="#EEFFFFFF"
+                android:textSize="15sp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/bg_input_field"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Password -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:textSize="12sp"
+                android:textColor="#88FFFFFF"
+                android:letterSpacing="0.05"
+                android:textAllCaps="true"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="••••••••"
+                android:textColor="#EEFFFFFF"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:background="@drawable/bg_input_field"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Error message -->
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="#F44336"
+                android:visibility="gone"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Sign in button -->
+            <TextView
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:gravity="center"
+                android:text="Sign In"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#4CAF50"
+                android:background="@drawable/bg_scan_button"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <!-- Loading indicator -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:indeterminateTint="#4CAF50" />
+
+        <!-- Register link -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? "
+                android:textSize="14sp"
+                android:textColor="#66FFFFFF" />
+
+            <TextView
+                android:id="@+id/btnGoRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textSize="14sp"
+                android:textColor="#4CAF50"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
