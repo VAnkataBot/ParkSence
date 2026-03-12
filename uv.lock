@@ -2869,7 +2869,6 @@ name = "server"
 version = "0.1.0"
 source = { virtual = "server" }
 dependencies = [
-    { name = "accelerate" },
     { name = "bcrypt" },
     { name = "email-validator" },
     { name = "fastapi" },
@@ -2880,15 +2879,11 @@ dependencies = [
     { name = "python-jose", extra = ["cryptography"] },
     { name = "python-multipart" },
     { name = "sqlalchemy" },
-    { name = "torch" },
-    { name = "torchvision" },
-    { name = "transformers" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "accelerate", specifier = ">=1.13.0" },
     { name = "bcrypt", specifier = "<4" },
     { name = "email-validator", specifier = ">=2.3.0" },
     { name = "fastapi", specifier = ">=0.135.1" },
@@ -2899,9 +2894,6 @@ requires-dist = [
     { name = "python-jose", extras = ["cryptography"], specifier = ">=3.5.0" },
     { name = "python-multipart", specifier = ">=0.0.22" },
     { name = "sqlalchemy", specifier = ">=2.0.48" },
-    { name = "torch", specifier = ">=2.10.0" },
-    { name = "torchvision", specifier = ">=0.25.0" },
-    { name = "transformers", specifier = ">=5.3.0" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.41.0" },
 ]
 

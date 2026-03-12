@@ -4,7 +4,7 @@
 
 ## Overview
 
-ParkSence is a two-part system built for anyone navigating Stockholm's (or any Swedish city's) maze of parking signs. A native Android app streams the camera feed, locks onto the sign, and fires it to a FastAPI backend that runs a multimodal vision model. The model reads every sign, plate, and symbol on the pole and returns a simple verdict: park / don't park / uncertain — personalised to your vehicle type, disability status, and resident permit zone.
+ParkSence is a three-part system built for anyone navigating Stockholm's (or any Swedish city's) maze of parking signs. Native Android and iOS apps stream the camera feed, lock onto the sign, and fire it to a FastAPI backend that runs a multimodal vision model. The model reads every sign, plate, and symbol on the pole and returns a simple verdict: park / don't park / uncertain — personalised to your vehicle type, disability status, and resident permit zone.
 
 ## Short Demo
 
@@ -21,12 +21,13 @@ ParkSence is a two-part system built for anyone navigating Stockholm's (or any S
 - **HF Cloud Fallback** — Automatically falls back to Qwen2.5-VL-72B on Hugging Face if the local model is unavailable
 - **Auth & Profiles** — JWT-based register/login, persistent vehicle profile stored server-side
 - **Native Android App** — CameraX live preview with a scan overlay, haptic feedback, and a clean result card
+- **Native iOS App** — AVFoundation camera pipeline, SwiftUI overlay, full feature parity with Android
 
 ---
 
 ## How It Works
 
-1. **Android app** captures a frame when the camera locks on a sign, attaches the current day and time, and POSTs it to the server.
+1. **Android / iOS app** captures a frame when the camera locks on a sign, attaches the current day and time, and POSTs it to the server.
 2. **FastAPI server** receives the image, resizes it, and passes it to the analyzer along with the user's vehicle profile pulled from the database.
 3. **Analyzer** runs a structured two-phase prompt: first listing every sign/plate visible, then applying Swedish parking rules step-by-step.
 4. **VLM** (local mlx or HF cloud) returns JSON — `signs`, `notes`, `can_park`, `message` — which the app renders as a colour-coded verdict card.
@@ -44,12 +45,22 @@ server/
   database.py     # SQLite engine + session factory
   pyproject.toml  # Server dependencies
 android/
-  app/src/main/
-    java/com/parksence/
-      MainActivity.kt       # Camera + scan flow
-      api/ApiClient.kt      # Retrofit API client
-      auth/                 # Login / Register / Profile screens
-    res/layout/             # XML layouts
+  app/src/main/java/com/parksence/
+    MainActivity.kt         # Camera + scan flow
+    api/ApiClient.kt        # HTTP client
+    auth/                   # Login / Register / Profile screens
+    detection/ColorDetector.kt
+    parser/ParkingParser.kt
+    classifier/SignClassifier.kt
+ios/ParkSence/ParkSence/
+  MainView.swift            # Camera + scan flow
+  API/ApiClient.swift       # URLSession HTTP client
+  Auth/                     # Login / Register / Profile screens
+  Camera/                   # AVFoundation pipeline
+  Detection/ColorDetector.swift
+  Parser/ParkingParser.swift
+  Classifier/SignClassifier.swift
+  UI/                       # ScanOverlayView, VerdictCard, DesignSystem
 desktop/          # Deprecated Streamlit prototype
 ```
 
@@ -59,7 +70,8 @@ desktop/          # Deprecated Streamlit prototype
 
 - Python 3.11+ with `uv`
 - Apple Silicon Mac (for local mlx inference) **or** a Hugging Face token (for cloud fallback)
-- Android Studio (to build the app) / Android 8.0+ device
+- Android Studio / Android 8.0+ device
+- Xcode 16+ / iOS 16+ device (for the iOS app)
 
 ---
 
@@ -105,8 +117,14 @@ The first run downloads the local model (~5 GB) to `server/model/`.
 ### Android App
 
 1. Open `android/` in Android Studio.
-2. In `ApiClient.kt`, set `BASE_URL` to your server's address.
+2. In `ApiClient.kt`, set `serverUrl` to your server's address.
 3. Build and run on a physical device (camera required).
+
+### iOS App
+
+1. Open `ios/ParkSence/ParkSence.xcodeproj` in Xcode.
+2. In `API/ApiClient.swift`, set `serverUrl` to your server's address.
+3. Build and run on a physical device (camera required for scanning).
 
 ---
 
@@ -142,7 +160,8 @@ The first run downloads the local model (~5 GB) to `server/model/`.
 
 | Layer | Technology |
 |-------|-----------|
-| Android | Kotlin, CameraX, ViewBinding, Coroutines, Retrofit |
+| Android | Kotlin, CameraX, ViewBinding, Coroutines |
+| iOS | Swift, SwiftUI, AVFoundation, Vision |
 | Server | FastAPI, SQLAlchemy, SQLite |
 | AI (local) | mlx-vlm, Qwen3-VL-8B-Instruct-4bit (Apple Silicon) |
 | AI (cloud) | HuggingFace Inference API, Qwen2.5-VL-72B |

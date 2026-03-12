@@ -11,6 +11,11 @@ build/
 # Models
 models/
 server/model/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
 images/
 testing_batch/
 
