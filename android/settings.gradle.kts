@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ParkSence"
+rootProject.name = "ParkSense"
 include(":app")

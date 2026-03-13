@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ParkSence">
+        android:theme="@style/Theme.ParkSense">
 
         <!-- Bundle ML Kit OCR model at install time — works fully offline -->
         <meta-data

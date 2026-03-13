@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 import models
 
-SECRET_KEY = os.getenv("SECRET_KEY", "parksence-dev-secret-change-in-production")
+SECRET_KEY = os.getenv("SECRET_KEY", "parksense-dev-secret-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24 * 30  # 30 days
 

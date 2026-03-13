@@ -1,10 +1,10 @@
-# ParkSence
+# ParkSense
 
-**Never guess a parking sign again.** Point your phone at any Swedish parking sign, and ParkSence tells you instantly - can you park here, right now, for your vehicle.
+**Never guess a parking sign again.** Point your phone at any Swedish parking sign, and ParkSense tells you instantly - can you park here, right now, for your vehicle.
 
 ## Overview
 
-ParkSence is a three-part system built for anyone navigating Stockholm's (or any Swedish city's) maze of parking signs. Native Android and iOS apps stream the camera feed, lock onto the sign, and fire it to a FastAPI backend that runs a multimodal vision model. The model reads every sign, plate, and symbol on the pole and returns a simple verdict: park / don't park / uncertain - personalised to your vehicle type, disability status, and resident permit zone.
+ParkSense is a three-part system built for anyone navigating Stockholm's (or any Swedish city's) maze of parking signs. Native Android and iOS apps stream the camera feed, lock onto the sign, and fire it to a FastAPI backend that runs a multimodal vision model. The model reads every sign, plate, and symbol on the pole and returns a simple verdict: park / don't park / uncertain - personalised to your vehicle type, disability status, and resident permit zone.
 
 ## Short Demo
 
@@ -45,14 +45,14 @@ server/
   database.py     # SQLite engine + session factory
   pyproject.toml  # Server dependencies
 android/
-  app/src/main/java/com/parksence/
+  app/src/main/java/com/parksense/
     MainActivity.kt         # Camera + scan flow
     api/ApiClient.kt        # HTTP client
     auth/                   # Login / Register / Profile screens
     detection/ColorDetector.kt
     parser/ParkingParser.kt
     classifier/SignClassifier.kt
-ios/ParkSence/ParkSence/
+ios/ParkSense/ParkSense/
   MainView.swift            # Camera + scan flow
   API/ApiClient.swift       # URLSession HTTP client
   Auth/                     # Login / Register / Profile screens
@@ -80,8 +80,8 @@ desktop/          # Deprecated Streamlit prototype
 ### Server
 
 ```sh
-git clone https://github.com/VAnkataBot/ParkSence.git
-cd ParkSence/server
+git clone https://github.com/VAnkataBot/ParkSense.git
+cd ParkSense/server
 ```
 
 Install dependencies:
@@ -133,7 +133,7 @@ On first run the model (~5–16 GB depending on quantization) is downloaded auto
 
 ### iOS App
 
-1. Open `ios/ParkSence/ParkSence.xcodeproj` in Xcode.
+1. Open `ios/ParkSense/ParkSense.xcodeproj` in Xcode.
 2. In `API/ApiClient.swift`, set `serverUrl` to your server's address.
 3. Build and run on a physical device (camera required for scanning).
 

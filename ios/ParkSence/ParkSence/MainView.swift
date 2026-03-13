@@ -31,7 +31,7 @@ struct MainView: View {
                     // Top bar
                     VStack {
                         HStack {
-                            Text("ParkSence")
+                            Text("ParkSense")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.white)
                             Spacer()

@@ -7,24 +7,24 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		6699918E2F62F81700048062 /* ParkSence.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkSence.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6699918E2F62F81700048062 /* ParkSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		AA0000012F62F81700048062 /* Exceptions for "ParkSence" folder in "ParkSence" target */ = {
+		AA0000012F62F81700048062 /* Exceptions for "ParkSense" folder in "ParkSense" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 6699918D2F62F81700048062 /* ParkSence */;
+			target = 6699918D2F62F81700048062 /* ParkSense */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		669991902F62F81700048062 /* ParkSence */ = {
+		669991902F62F81700048062 /* ParkSense */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				AA0000012F62F81700048062 /* Exceptions for "ParkSence" folder in "ParkSence" target */,
+				AA0000012F62F81700048062 /* Exceptions for "ParkSense" folder in "ParkSense" target */,
 			);
 			path = ParkSence;
 			sourceTree = "<group>";
@@ -45,7 +45,7 @@
 		669991852F62F81700048062 = {
 			isa = PBXGroup;
 			children = (
-				669991902F62F81700048062 /* ParkSence */,
+				669991902F62F81700048062 /* ParkSense */,
 				6699918F2F62F81700048062 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		6699918F2F62F81700048062 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6699918E2F62F81700048062 /* ParkSence.app */,
+				6699918E2F62F81700048062 /* ParkSense.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6699918D2F62F81700048062 /* ParkSence */ = {
+		6699918D2F62F81700048062 /* ParkSense */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 669991992F62F81800048062 /* Build configuration list for PBXNativeTarget "ParkSence" */;
+			buildConfigurationList = 669991992F62F81800048062 /* Build configuration list for PBXNativeTarget "ParkSense" */;
 			buildPhases = (
 				6699918A2F62F81700048062 /* Sources */,
 				6699918B2F62F81700048062 /* Frameworks */,
@@ -74,13 +74,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				669991902F62F81700048062 /* ParkSence */,
+				669991902F62F81700048062 /* ParkSense */,
 			);
-			name = ParkSence;
+			name = ParkSense;
 			packageProductDependencies = (
 			);
-			productName = ParkSence;
-			productReference = 6699918E2F62F81700048062 /* ParkSence.app */;
+			productName = ParkSense;
+			productReference = 6699918E2F62F81700048062 /* ParkSense.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 669991892F62F81700048062 /* Build configuration list for PBXProject "ParkSence" */;
+			buildConfigurationList = 669991892F62F81700048062 /* Build configuration list for PBXProject "ParkSense" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6699918D2F62F81700048062 /* ParkSence */,
+				6699918D2F62F81700048062 /* ParkSense */,
 			);
 		};
 /* End PBXProject section */
@@ -277,7 +277,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = my.ParkSence;
+				PRODUCT_BUNDLE_IDENTIFIER = my.ParkSense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -309,7 +309,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = my.ParkSence;
+				PRODUCT_BUNDLE_IDENTIFIER = my.ParkSense;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -324,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		669991892F62F81700048062 /* Build configuration list for PBXProject "ParkSence" */ = {
+		669991892F62F81700048062 /* Build configuration list for PBXProject "ParkSense" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				669991972F62F81800048062 /* Debug */,
@@ -333,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		669991992F62F81800048062 /* Build configuration list for PBXNativeTarget "ParkSence" */ = {
+		669991992F62F81800048062 /* Build configuration list for PBXNativeTarget "ParkSense" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6699919A2F62F81800048062 /* Debug */,

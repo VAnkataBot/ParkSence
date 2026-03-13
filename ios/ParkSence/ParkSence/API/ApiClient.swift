@@ -85,7 +85,7 @@ final class ApiClient {
 
     func analyze(image: UIImage, dayName: String, timeStr: String) async throws -> ParkingResult {
         let jpeg = resizedJpeg(image)
-        let boundary = "----ParkSenceBoundary"
+        let boundary = "----ParkSenseBoundary"
         var body = Data()
 
         func append(_ string: String) {

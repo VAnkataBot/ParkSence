@@ -1,14 +1,14 @@
-package com.parksence.auth
+package com.parksense.auth
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.parksence.R
-import com.parksence.api.ApiClient
-import com.parksence.api.UserProfile
-import com.parksence.databinding.ActivityProfileBinding
+import com.parksense.R
+import com.parksense.api.ApiClient
+import com.parksense.api.UserProfile
+import com.parksense.databinding.ActivityProfileBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

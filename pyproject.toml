@@ -1,5 +1,5 @@
 [project]
-name = "parksence"
+name = "parksense"
 version = "0.1.0"
 description = "Scan a Swedish parking sign to know if you can park"
 readme = "README.md"

@@ -10,8 +10,8 @@ final class CameraSession: NSObject, ObservableObject {
 
     let captureSession = AVCaptureSession()
 
-    private let frameQueue  = DispatchQueue(label: "parksence.frames", qos: .userInteractive)
-    private let outputQueue = DispatchQueue(label: "parksence.output", qos: .userInteractive)
+    private let frameQueue  = DispatchQueue(label: "parksense.frames", qos: .userInteractive)
+    private let outputQueue = DispatchQueue(label: "parksense.output", qos: .userInteractive)
     private var photoOutput = AVCapturePhotoOutput()
     private var isAnalysing = false
 

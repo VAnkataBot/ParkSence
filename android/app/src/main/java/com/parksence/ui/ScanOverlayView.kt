@@ -1,4 +1,4 @@
-package com.parksence.ui
+package com.parksense.ui
 
 import android.animation.ValueAnimator
 import android.content.Context

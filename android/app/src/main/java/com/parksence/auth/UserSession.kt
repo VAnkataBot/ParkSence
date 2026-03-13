@@ -1,8 +1,8 @@
-package com.parksence.auth
+package com.parksense.auth
 
 import android.content.Context
-import com.parksence.api.ApiClient
-import com.parksence.api.UserProfile
+import com.parksense.api.ApiClient
+import com.parksense.api.UserProfile
 
 /**
  * Persists JWT token and user profile in SharedPreferences.

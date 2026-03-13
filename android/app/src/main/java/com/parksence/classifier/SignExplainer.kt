@@ -1,4 +1,4 @@
-package com.parksence.classifier
+package com.parksense.classifier
 
 /**
  * Human-readable explanations for each sign class.

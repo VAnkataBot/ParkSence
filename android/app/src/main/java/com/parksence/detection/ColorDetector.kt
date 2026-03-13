@@ -1,4 +1,4 @@
-package com.parksence.detection
+package com.parksense.detection
 
 import android.graphics.Bitmap
 import android.graphics.Color

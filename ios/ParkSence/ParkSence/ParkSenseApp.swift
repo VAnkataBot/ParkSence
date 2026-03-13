@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct ParkSenceApp: App {
+struct ParkSenseApp: App {
     @StateObject private var session = UserSession.shared
 
     var body: some Scene {

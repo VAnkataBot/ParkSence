@@ -1,4 +1,4 @@
-package com.parksence
+package com.parksense
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -21,13 +21,13 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.parksence.api.ApiClient
-import com.parksence.auth.LoginActivity
-import com.parksence.auth.ProfileActivity
-import com.parksence.auth.UserSession
-import com.parksence.databinding.ActivityMainBinding
-import com.parksence.detection.ColorDetector
-import com.parksence.ui.ScanOverlayView
+import com.parksense.api.ApiClient
+import com.parksense.auth.LoginActivity
+import com.parksense.auth.ProfileActivity
+import com.parksense.auth.UserSession
+import com.parksense.databinding.ActivityMainBinding
+import com.parksense.detection.ColorDetector
+import com.parksense.ui.ScanOverlayView
 import kotlinx.coroutines.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
         AlertDialog.Builder(this)
             .setTitle("Server URL")
-            .setMessage("Enter your ParkSence server URL")
+            .setMessage("Enter your ParkSense server URL")
             .setView(input)
             .setPositiveButton("Save") { _, _ ->
                 val url = input.text.toString().trimEnd('/')
@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
             hasSign = ColorDetector.hasSignInCenter(bitmap)
             bitmap.recycle()
         } catch (e: Exception) {
-            Log.e("ParkSence", "Frame analysis failed", e)
+            Log.e("ParkSense", "Frame analysis failed", e)
         } finally {
             proxy.close()
         }
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         fullBitmap = bmp
                     } catch (e: Exception) {
-                        Log.e("ParkSence", "toBitmap failed", e)
+                        Log.e("ParkSense", "toBitmap failed", e)
                         image.close()
                         isAnalysing = false
                         binding.overlay.state = ScanOverlayView.State.SEARCHING
@@ -217,13 +217,13 @@ class MainActivity : AppCompatActivity() {
                             withContext(Dispatchers.Main) { showResult(result) }
                         } catch (e: Exception) {
                             croppedBitmap.recycle()
-                            Log.e("ParkSence", "LM Studio call failed", e)
+                            Log.e("ParkSense", "LM Studio call failed", e)
                             withContext(Dispatchers.Main) { showError(e.message ?: "Unknown error") }
                         }
                     }
                 }
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e("ParkSence", "Capture failed", exc)
+                    Log.e("ParkSense", "Capture failed", exc)
                     isAnalysing = false
                     binding.overlay.state = ScanOverlayView.State.SEARCHING
                 }
@@ -274,7 +274,7 @@ class MainActivity : AppCompatActivity() {
 
     // ── Result display ────────────────────────────────────────────────────────
 
-    private fun showResult(result: com.parksence.api.ParkingResult) {
+    private fun showResult(result: com.parksense.api.ParkingResult) {
         // Fade out frozen frame + overlay
         binding.overlay.animate().alpha(0f).setDuration(250).withEndAction {
             binding.overlay.visibility = View.GONE

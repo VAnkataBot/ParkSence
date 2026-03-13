@@ -1,6 +1,6 @@
-package com.parksence.parser
+package com.parksense.parser
 
-import com.parksence.classifier.SignData
+import com.parksense.classifier.SignData
 import java.time.LocalDateTime
 
 /**

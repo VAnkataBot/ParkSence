@@ -1,4 +1,4 @@
-"""ParkSence API server — replaces LM Studio for parking sign analysis."""
+"""ParkSense API server — replaces LM Studio for parking sign analysis."""
 import base64
 import os
 from datetime import date as DateType
@@ -35,7 +35,7 @@ async def lifespan(app):
         )
     yield
 
-app = FastAPI(title="ParkSence API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="ParkSense API", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -1,4 +1,4 @@
-package com.parksence.ocr
+package com.parksense.ocr
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

@@ -1,4 +1,4 @@
-package com.parksence.classifier
+package com.parksense.classifier
 
 /**
  * Port of Python core/classifier.py

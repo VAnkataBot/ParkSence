@@ -1,4 +1,4 @@
-package com.parksence.api
+package com.parksense.api
 
 import android.graphics.Bitmap
 import android.util.Base64
@@ -82,7 +82,7 @@ object ApiClient {
     fun analyze(bitmap: Bitmap, dayName: String, timeStr: String): ParkingResult {
         val jpeg = bitmapToJpegBytes(bitmap)
 
-        val boundary = "----ParkSenceBoundary"
+        val boundary = "----ParkSenseBoundary"
         val baos = ByteArrayOutputStream()
         fun write(s: String) = baos.write(s.toByteArray())
 

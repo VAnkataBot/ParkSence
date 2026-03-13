@@ -21,7 +21,7 @@ struct LoginView: View {
                         VStack(spacing: 8) {
                             Text("🅿")
                                 .font(.system(size: 64))
-                            Text("ParkSence")
+                            Text("ParkSense")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.white)
                             Text("Know before you park")
