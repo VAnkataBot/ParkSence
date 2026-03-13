@@ -57,7 +57,7 @@ class ScanOverlayView @JvmOverloads constructor(
     }
     private val arcPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE; strokeWidth = 6f; strokeCap = Paint.Cap.ROUND
-        color = Color.parseColor("#4CAF50")
+        color = Color.parseColor("#ff4b4b")
     }
     private val dimPaint = Paint().apply {
         color = Color.parseColor("#55000000")
@@ -171,11 +171,11 @@ class ScanOverlayView @JvmOverloads constructor(
             canvas.drawText("P", pBoxRect.centerX(), pBoxRect.centerY() + 18f, pIndicatorPaint)
         } else if (state == State.LOCKED) {
             // Green P box when locked
-            pBoxPaint.color = Color.parseColor("#4CAF50")
-            pBoxFillPaint.color = Color.parseColor("#224CAF50")
+            pBoxPaint.color = Color.parseColor("#ff4b4b")
+            pBoxFillPaint.color = Color.parseColor("#22ff4b4b")
             canvas.drawRoundRect(pBoxRect, 8f, 8f, pBoxFillPaint)
             canvas.drawRoundRect(pBoxRect, 8f, 8f, pBoxPaint)
-            pIndicatorPaint.color = Color.parseColor("#4CAF50")
+            pIndicatorPaint.color = Color.parseColor("#ff4b4b")
             canvas.drawText("P", pBoxRect.centerX(), pBoxRect.centerY() + 18f, pIndicatorPaint)
             // Reset
             pBoxPaint.color = Color.WHITE
@@ -197,13 +197,13 @@ class ScanOverlayView @JvmOverloads constructor(
                 canvas.drawText("Align P sign at the top", cx, labelY, labelPaint)
             }
             State.LOCKED -> {
-                labelPaint.color = Color.parseColor("#4CAF50")
+                labelPaint.color = Color.parseColor("#ff4b4b")
                 canvas.drawText("Sign detected", cx, labelY, labelPaint)
                 canvas.drawText("Hold steady...", cx, labelY + 40f, sublabelPaint)
                 labelPaint.color = Color.WHITE
             }
             State.ANALYSING -> {
-                labelPaint.color = Color.parseColor("#4CAF50")
+                labelPaint.color = Color.parseColor("#ff4b4b")
                 canvas.drawText("Analysing...", cx, labelY, labelPaint)
                 labelPaint.color = Color.WHITE
             }

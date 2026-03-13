@@ -10,7 +10,7 @@ struct ScanOverlayView: View {
     @State private var lockAlpha: CGFloat = 0   // 0→1 green fill fade
     @State private var spinAngle: Double  = 0   // 0→360 spinning arc
 
-    private let green = Color(hex: "4CAF50")
+    private let green = Color(hex: "ff4b4b")
 
     var body: some View {
         GeometryReader { geo in
@@ -36,9 +36,9 @@ struct ScanOverlayView: View {
             // Corner colour: white → green
             let t = Double(lockAlpha)
             let cornerColor = Color(
-                red:   1 + (76/255.0  - 1) * t,
-                green: 1 + (175/255.0 - 1) * t,
-                blue:  1 + (80/255.0  - 1) * t
+                red:   1 + (255/255.0 - 1) * t,
+                green: 1 + (75/255.0  - 1) * t,
+                blue:  1 + (75/255.0  - 1) * t
             )
 
             ZStack {

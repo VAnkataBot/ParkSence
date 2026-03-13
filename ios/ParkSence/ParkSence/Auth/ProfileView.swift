@@ -19,7 +19,7 @@ struct ProfileView: View {
 
     var body: some View {
         ZStack {
-            Color(hex: "0D0D12").ignoresSafeArea()
+            Color(hex: "1a1c24").ignoresSafeArea()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
@@ -62,7 +62,7 @@ struct ProfileView: View {
                                     .foregroundColor(.white.opacity(0.7))
                                 Text("Disability permit").foregroundColor(.white).font(.subheadline)
                             }
-                        }.tint(Color(hex: "4CAF50"))
+                        }.tint(Color(hex: "ff4b4b"))
 
                         Toggle(isOn: $hasResident) {
                             HStack(spacing: 8) {
@@ -70,7 +70,7 @@ struct ProfileView: View {
                                     .foregroundColor(.white.opacity(0.7))
                                 Text("Resident permit").foregroundColor(.white).font(.subheadline)
                             }
-                        }.tint(Color(hex: "4CAF50"))
+                        }.tint(Color(hex: "ff4b4b"))
 
                         if hasResident {
                             PSTextField(placeholder: "Zone (e.g. A, B4, Östermalm)", text: $residentZone)
@@ -151,7 +151,7 @@ private struct VehicleButton: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 10)
-            .background(selected ? Color(hex: "4CAF50") : Color.white.opacity(0.08))
+            .background(selected ? Color(hex: "ff4b4b") : Color.white.opacity(0.08))
             .foregroundColor(selected ? .white : .white.opacity(0.7))
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }

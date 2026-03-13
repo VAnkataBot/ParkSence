@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         UserSession.load(this) // restores ApiClient.authToken
 
         val prefs = getSharedPreferences("settings", MODE_PRIVATE)
-        ApiClient.serverUrl = prefs.getString("server_url", "http://192.168.68.101:8000")!!
+        ApiClient.serverUrl = prefs.getString("server_url", "http://192.168.68.103:8000")!!
 
         binding.btnScanAgain.setOnClickListener { resetToScan() }
         binding.btnScanAgainTop.setOnClickListener { resetToScan() }

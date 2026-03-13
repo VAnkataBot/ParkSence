@@ -101,7 +101,7 @@
         android:id="@+id/resultCard"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#0D0D12"
+        android:background="@color/bg"
         android:visibility="gone"
         android:clipToPadding="false"
         android:paddingBottom="40dp"
@@ -124,7 +124,7 @@
                 android:paddingTop="48dp"
                 android:paddingBottom="8dp"
                 android:paddingHorizontal="8dp"
-                android:background="#0D0D12">
+                android:background="@color/bg">
 
                 <!-- Status bar spacer via fitsSystemWindows handled by theme -->
                 <TextView
@@ -268,7 +268,7 @@
                     android:text="Scan Again"
                     android:textSize="16sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="#4CAF50"
+                    android:textColor="@color/accent"
                     android:letterSpacing="0.03"
                     android:background="@drawable/bg_scan_button"
                     android:visibility="gone" />

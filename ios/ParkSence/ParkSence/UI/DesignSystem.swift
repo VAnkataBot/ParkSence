@@ -49,7 +49,7 @@ struct PSTextField: View {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(Color.white.opacity(0.12), lineWidth: 1)
         )
-        .tint(Color(hex: "4CAF50"))
+        .tint(Color(hex: "ff4b4b"))
     }
 }
 
@@ -75,8 +75,8 @@ struct PSButton: View {
             .padding(.vertical, 14)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color(hex: "4CAF50"), lineWidth: 1.5)
-                    .background(Color(hex: "4CAF50").opacity(0.15).clipShape(RoundedRectangle(cornerRadius: 12)))
+                    .stroke(Color(hex: "ff4b4b"), lineWidth: 1.5)
+                    .background(Color(hex: "ff4b4b").opacity(0.15).clipShape(RoundedRectangle(cornerRadius: 12)))
             )
         }
         .disabled(loading)

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D0D12"
+    android:background="@color/bg"
     android:fillViewport="true">
 
     <LinearLayout
@@ -123,7 +123,7 @@
                 android:text="Sign In"
                 android:textSize="16sp"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="#4CAF50"
+                android:textColor="@color/accent"
                 android:background="@drawable/bg_scan_button"
                 android:layout_marginTop="8dp" />
 
@@ -136,7 +136,7 @@
             android:layout_height="32dp"
             android:layout_marginTop="16dp"
             android:visibility="gone"
-            android:indeterminateTint="#4CAF50" />
+            android:indeterminateTint="@color/accent" />
 
         <!-- Register link -->
         <LinearLayout
@@ -159,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:textSize="14sp"
-                android:textColor="#4CAF50"
+                android:textColor="@color/accent"
                 android:fontFamily="sans-serif-medium" />
         </LinearLayout>
 

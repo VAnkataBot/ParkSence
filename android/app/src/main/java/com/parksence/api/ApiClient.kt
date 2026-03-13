@@ -27,7 +27,7 @@ data class UserProfile(
 
 object ApiClient {
 
-    var serverUrl = "http://192.168.68.101:8000"
+    var serverUrl = "http://192.168.68.103:8000"
     var authToken: String? = null
 
     // ── Auth calls ────────────────────────────────────────────────────────────

@@ -82,7 +82,7 @@ struct MainView: View {
                             UIApplication.shared.open(url)
                         }
                     }
-                    .foregroundColor(Color(hex: "4CAF50"))
+                    .foregroundColor(Color(hex: "ff4b4b"))
                 }
                 .padding(32)
             }

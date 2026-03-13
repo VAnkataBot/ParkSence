@@ -12,7 +12,7 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color(hex: "0D0D12").ignoresSafeArea()
+                Color(hex: "1a1c24").ignoresSafeArea()
 
                 ScrollView {
                     VStack(spacing: 32) {
@@ -63,7 +63,7 @@ struct LoginView: View {
                                 Text("Don't have an account? ")
                                     .foregroundColor(.white.opacity(0.5))
                                 Text("Register")
-                                    .foregroundColor(Color(hex: "4CAF50"))
+                                    .foregroundColor(Color(hex: "ff4b4b"))
                             }
                         }
                         .font(.subheadline)

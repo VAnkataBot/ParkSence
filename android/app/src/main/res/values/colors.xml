@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Palette -->
+    <color name="bg">#1a1c24</color>
+    <color name="surface">#242630</color>
+    <color name="grid">#3a3c44</color>
+    <color name="accent">#ff4b4b</color>
+    <color name="accent_dim">#26ff4b4b</color>
+    <color name="accent_border">#55ff4b4b</color>
+
+    <!-- Verdict semantic (unchanged) -->
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
     <color name="orange">#FF9800</color>
+
+    <!-- Text -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#99FFFFFF</color>
+    <color name="text_hint">#55FFFFFF</color>
 </resources>
